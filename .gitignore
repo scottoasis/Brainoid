@@ -1,0 +1,5 @@
+# ignore the auto-saved file of matlab
+*.asv
+# ignore the auto-saved file of emacs
+*~
+\#*\#

@@ -1,0 +1,17 @@
+This is a sample of using csv (Comma-Seperated Values) files.
+Note that your data should start from the 6th row so the readcsv
+function can read it properly.
+
+Electrode    Code
+Fz,	     1
+Cz,          2
+Pz,          3
+Oz,          4
+O1,          5
+O2,          6
+P7,          7
+P3,          8
+P4,          9
+P8,          10
+C3,          11
+C4,          12
