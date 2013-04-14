@@ -1,4 +1,4 @@
-function [acc br] = crossval(train, apply, data)
+function results = crossval(train, apply, data)
   % This function, crossval, wraps through all the given data, train and
   % validates the model with data. Finally, the function gives out the
   % accuracy and bit rate of the model.
@@ -11,14 +11,15 @@ function [acc br] = crossval(train, apply, data)
   %      data  - A cell of matrics with preprocessed data, will be used 
   %	         to train and test (so-called validate) the model.
   % OUTPUT:
-  %      acc   - A matrix that stored the accuracy of the model.
-  %	 br    - A matrix that stored the bit-rate of the model.
+  %    results - A cell of matrix that stored the accuracy of the
+  %              model.
   %
 	 
-  rounds = length(data);
-  acc    = zeros(rounds, 1);
-  br     = zeros(rounds, 1);
-  DIM    = dim(data);
+  rounds  = length(data);
+  acc     = zeros(rounds, 1);
+  br      = zeros(rounds, 1);
+  DIM     = dim(data);
+  results = {};
   
   % for each test
   for test = 1:rounds
@@ -31,10 +32,7 @@ function [acc br] = crossval(train, apply, data)
     % and then, apply it with test data and model to get predicted
     % labels for testdata
     testdata  = data{test};
-    [a b]     = apply(model, testdata);
-    % and finally, concate the accuracy and bit rates together
-    acc(test) = a;
-    br(test)  = b;
+    results{test} = apply(model, testdata);
   end
   
 end
