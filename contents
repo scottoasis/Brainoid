@@ -2,35 +2,81 @@ The Brainoid can be divided into several modules, each corresponds to
 certain stage of dealing with BCI signals. The home folder of Brainoid
 contains:
 
-    +prep - This folder is a package that contains codes for
-            pre-processing, like normalize, down-sampling or
-            windsorize. You can write an apply function under this
-            folder to evoke these procedrues.
-
-     +res - This folder is the resouces package. In other words, all
-     	    the load-pathes, electrodes definition and other meta
-     	    information should be stored here. Remeber to separate
-     	    your codes and data as much as you can. You can use a csv
-     	    (Comma-Separated Vaules) file to store your data, and use
-     	    csvread() function to load the values in your code.
-
-  +models - This folder is where your algorithms stays. You can create
-  	    a package for an individual algorithm, like +models/+blda
-  	    for Bayesian Linear Discriminant analysis, or +models/+hmm
-  	    for Hidden Markov Models. Typically, you can add apply and
-  	    eval function for your models, just like the examples
-  	    under +modes/blda.
-
-  +output - This folder is a storage for output codes, like reshaping
-  	    the output matrices, or drawing figures. You can also put
-  	    the figures and other kinds of output files under this
-  	    directory.
-
-    +test - This package is for unit testing. For developing softwares
-    	    that is more agile and more durable, Test-Driven
-    	    Developing (TDD) is a good helper. Write your test cases
-    	    even before writting your codes, that will help you
-    	    forming a more solid image of what you are building. Then
-    	    write codes to pass the tests. An example of unit test is
-    	    already given, which to be found under +test/+crossval/,
-    	    just try it out.
+ '
+ +----------- [FOLDERS]
+ '  
+ |---[+prep]- This folder is a package that contains codes for
+ '           pre-processing, like normalize, down-sample and
+ '           winsorize. You can rewrite the apply function under this
+ '           eolder to evoke these procedrues.
+ '
+ |---[+res]- This folder is the resouces package. In other words, all
+ '   	     the load-pathes, electrodes definition and other meta
+ '   	     information should be stored here. Remeber to separate
+ '   	     your codes and data as much as you can. You can use a csv
+ '   	     (Comma-Separated Vaules) file to store your data, and use
+ '   	     csvread() function to load the values in your code.
+ '    
+ |-[+model]- This folder is where your algorithms stays. You can
+ '	     create a package for an individual algorithm, like
+ '	     +models/+blda for Bayesian Linear Discriminant analysis,
+ '	     or +model/+hmm for Hidden Markov Models. Typically, you
+ '	     can add apply and eval function for your models, just
+ '	     like the examples under +modes/blda.
+ '        
+ |-[+postp]- This folder is a storage for output codes, like reshaping
+ '           the output matrices, or drawing figures. You can also put
+ '	     the figures and other kinds of output files under this
+ '	     directory.
+ '            
+ |--[+test]- This package is for unit testing. For developing
+ '   T       softwares that is more agile and more durable,
+ '   '       Test-Driven Developing (TDD) is a good helper. Write your
+ '   '       test cases even before writting your codes, that will
+ '   '       help you forming a more solid image of what you are
+ '   '       building. Then write codes to pass the tests. An example
+ '   '       of unit test is already given, which can be found at
+ '   '       +test/crossval.m, just try it out.
+ '   ' 
+ '   `-[+model]- This folder is a package for testing your models,
+ '   '       	 espcially the algorithm. An example could be found
+ '   '       	 under +test/+model/hmm.m
+ '   '
+ '   `---[+res]- This folder is a package for tesing if the codes
+ '       	 manipulating works properly.
+ '
+ ' 		 
+ |-[output]- This is where you can/should put your output files, like
+ '           figures, or computation results.
+ '
+ |--[trash]- This is where the abandond codes belong.
+ '
+ '
+ +----------- [FILES]
+ '
+ '-----make.m - This script is used to invoke the whole program.
+ '
+ '-crossval.m - This function provides a solution to iterate through
+ '	      	all the given training data and cross-validates the
+ '             	model trained under these data.
+ '
+ '----count.m - This function can count the total number of elements in
+ '	       	a matrix. You can also sepcify a function to let it
+ '	       	count how many elements satisfies the function.
+ '
+ '--pathcat.m - This is a helper function to generate path string from a
+ ' 	       	sequence of strings.
+ '
+ '--cellrec.m - This function iterates through the given cell and then
+ '	      	 execute given function to elements of the cell.
+ '
+ '------dim.m - This helper function generates the dimension of given
+ ' 	      	matrix.
+ '
+ '---verify.m - This helper function checks the ratio of the correct
+ '	      	labeled data.
+ '
+ 'leveltree.m 
+ '
+ '
+ '

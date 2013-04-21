@@ -13,7 +13,7 @@ function data = apply(proceds, data)
     % if there is only one procedure, just apply the procedure to the
     % data and return it.
     % data = feval(proceds{1}, data);
-    data = data;
+    data = proceds{1}(data);
   else
     % if there is more than one procedure, apply the first one and
     % then its successors.

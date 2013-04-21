@@ -38,7 +38,7 @@ function n_correct = testclassificationp3001(trainingfiles, testfile, channels, 
     %  two big arrays: x and y
     for j = 1:n_runs;
       x = cat(3, x, f.runs{j}.x);
-      y= [y f.runs{j}.y];
+      y = [y f.runs{j}.y];
     end
 
   end
@@ -61,24 +61,34 @@ function n_correct = testclassificationp3001(trainingfiles, testfile, channels, 
   n = trainn(n,x,'z-score');
   x = applyn(n,x);
 
+
+
   n_channels = length(channels);
   n_samples  = size(x,2);
   n_trials   = size(x,3);
 
-  %% functio reshape modifies the dimention of given ARRAY with given DIM_ARRAY:
+  %% function reshape modifies the dimention of given ARRAY with given
+  %  DIM_ARRAY:
   %  reshape(ARRAY, DIM_ARRAY) = reshape(ARRAY, DIM_X, DIM_Y, ...)
   %  prod(DIM_ARRAY) = prod(size(ARRAY)) must be agreed.
   %
-  %  
+  %
   x = reshape(x, n_samples * n_channels, n_trials);
-  tnan = isnan(x);
-  x(tnan) = 0;
-  clear tnan;
+  x(isnan(x)) = 0;
 
-  %% bayesian lda
   b = bayesldab(1);
   b = trainbye(b,x,y);
 
+
+
+
+
+
+
+
+
+
+  
 
   %% validates training
   clear y

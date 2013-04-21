@@ -1,4 +1,4 @@
-function b = trainbye(b, x, y)
+function b = trainbye(x, y)
 % training procedure for Bayesian LDA
 % INPUT:
 %    b       - object of type bayeslda
@@ -15,7 +15,7 @@ function b = trainbye(b, x, y)
 % MacKay, D. J. C., 1992. Bayesian interpolation.
 % Neural Computation 4 (3), pp. 415-447.
 
-
+b = bayeslda(1);
 %% compute regression targets from class labels (to do lda via regression)
 n_posexamples = sum(y==1);
 n_negexamples = sum(y==-1);
