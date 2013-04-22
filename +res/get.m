@@ -4,9 +4,15 @@ function data = get(category, fullname)
   % INPUT:
   %	 category  - A string indicates the catagory of the data you want
   %                  to retrive, 'data', or 'electrodes', for example.
-  %	 funllname - A cell of string which identifies the detail of the
-  %	             data you want. You can find an example in make.m.
+  %	 funllname - A formatted string which identifies the detail of the
+  %	             data you want. You can find an example in
+  %                  +util/strformat.m.
   %
+  % if `res.loadpathes` is not ran yet.
+  if (~exist(HOME))
+    res.loadpathes;
+  end
+  
 
 	 
 end

@@ -12,7 +12,7 @@ function total = count(x, varargin)
     total = prod(size(x));
   else
     f = varargin{1};
-    total = count(f(x));
+    total = util.count(f(x));
   end
 
 end

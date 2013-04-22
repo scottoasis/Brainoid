@@ -9,14 +9,18 @@ function data = apply(proceds, data)
   % OUTPUT:
   %	 data    - a matrix of data, after processing.
 
-  if (length(proceds) == 1)
-    % if there is only one procedure, just apply the procedure to the
-    % data and return it.
-    % data = feval(proceds{1}, data);
+  % if there is only one procedure to be applied on data, and this
+  % procedure is may be passed in not in a cell, like `@prod`, then
+  % simply apply it to data;
+  if(~iscell(proceds))
+    data = proceds(data);
+  % or if there is only one procedure, but it is included in a cell,
+  % like `{@prod}`, take it out and apply it.
+  elseif (length(proceds) == 1)
     data = proceds{1}(data);
+  % or for the last senario which has several procedures, included in
+  % a cell, like `{@prod, @sum}`, then apply them one-by-one.
   else
-    % if there is more than one procedure, apply the first one and
-    % then its successors.
     data =  prep.apply({proceds{2:end}}, ...
 		       prep.apply({proceds{1}}, data));
   end

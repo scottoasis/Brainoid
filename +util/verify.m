@@ -12,6 +12,7 @@ function accu = verify(predic, label)
   total  = @(x) x;
   for test = 1:tests
     similarity = predic{test} == label{test};
-    accu{test} = count(similarity, istrue) / count(similarity, total);
+    accu{test} = util.count(similarity, istrue) / ...
+		 util.count(similarity, total);
   end
 end

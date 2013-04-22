@@ -19,8 +19,6 @@ function crossval(varargin)
   simpledata  = {ones(4), zeros(4), magic(4)};
   simplelabel = {[1 0] [1 0] [1 0]};
 
-  complexdata = res.get();
-
   % This mock function onesandzeros() will return fixed values [1, 1,
   % ..., 1] and [0, 0, ..., 0] as the result of applying data on
   % model.
@@ -41,21 +39,9 @@ function crossval(varargin)
   % crossval() is up and running. If the function works, it will
   % return ones and zeros.
   function uprun()
-    acc = crossval(@matchthree, @onesandzeros, simpledata, simplelabel);
+    acc = util.crossval(@matchthree, @onesandzeros, simpledata, simplelabel);
   end
 
-  if (nargin >= 1)
-    % if there is any test specification, then go through the tests
-    % one-by-one.
-    tests = varargin;
-    eval(tests{1});
-    if (nargin > 1)
-      test.crossval(tests{2:end});
-    end
-  else
-    % if there is no arguments to sepecify tests, then by default we go
-    % through all tests here;
-    uprun;
-  end
+  uprun;
     
 end

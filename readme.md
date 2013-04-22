@@ -1,12 +1,13 @@
 Brainoid
 ========
 
-Brainoid is an Octave/Matlab framework for analysing BCI data. It is
-developed in order to help you get out from those erroneous, repeating
-work.
+Brainoid is an `Octave/Matlab` framework for analysing Brain-Computer
+Interfaces (aka. BCI) data. It is developed in order to help you get
+out from coding repeatedly, which is boring, dangerous and erroneous.
 
 
-# Objectives
+Objectives
+----------
 
 The major objective of Brainoid is to bring you a handy set of
 softwares to make it easier to build a BCI system, either online or
@@ -30,11 +31,38 @@ tests. TDD will help you write maintainable modules.
 Up and running
 --------------
 
+### Adding third-party libraries
 
+It is quite commen that recorded BCI data need third-party libs to
+resolve the raw data. What's more, you may want to reuse codes from
+others such as algorithm packages. It is recommanded to add these
+packages under the lib/ directory, thus Brianoid can look up for it
+automatically.
+
+
+### Let me know where to find you
+
+
+
+
+### Defining your data structure
+
+Raw data used in BCI is usually composed with extremly complexity,
+with numerous tags and synchronized labels. Usually you can seperate
+raw-data into three parts: headers, pure-data and others. headers are
+data about the data it recorded, such as sample rate, definition of
+electrodes or the name of subject. These information are extremly
+helpful for you and Brainoid to understand the data.
+
+
+### Give it a shot
+
+
+### Organize your own workfolw
 
 
 About licensing
-----------------
+---------------
 
 This software is under GNU Public License (GPL). You should received a
 copy of the GPL license along with the software. If not, write to the
