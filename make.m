@@ -1,4 +1,4 @@
-function [data, label] = make(varargin)
+function accu = make(varargin)
   % make.m is the main entrance of the whole program. 
   %
 
@@ -58,10 +58,9 @@ function [data, label] = make(varargin)
 
 
   %% +MODEL
-  trainblda = @(data, label) model.blda.train(model.blda.bayesldab(1), ...
-					      data, label);
-  applyblda = @(model,data) model.blda.apply(model, data);
+  trainblda = @(data, label) model.blda.train(model.blda.bayesldab(1), data, label);
+  applyblda = @(param, data) model.blda.classifybye(param, data);
 
-  results = util.crossval(trainblda, applyblda, data, label);
+  accu = util.crossval(trainblda, applyblda, data, label);
 
 
