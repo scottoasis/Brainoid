@@ -16,42 +16,53 @@ function accu = crossval(train, apply, data, label)
   %    results - A cell of matrix that stored the accuracy of the
   %              model.
   %
-	 
-  rounds  = length(data);
-  acc     = zeros(rounds, 1);
-  br      = zeros(rounds, 1);
-  result  = {};
-  
-  % for each round of test
-  for test = 1:rounds
-    % train the model with train data, get a structure of params.
-    traindata  = cat(util.dim(data{1}), ...
-		     data{1:test -1}, ...
-		     data{test + 1:end});
-    points     = size(traindata, 3);
-    traindata  = reshape(traindata, ...
-			 util.count(traindata)/points, ...
-			 points);
 
-    trainlabel = cat(util.dim(label{1}), ...
-		     label{1:test-1}, ...
-		     label{test+1:end});
-    trainlabel = reshape(trainlabel, ...
-			 util.count(trainlabel)/points, ...
-			 points);
-    size(traindata)
-    size(trainlabel)
-    model      = train(traindata, trainlabel);
-    % and then, apply it with test data and model to get predicted
-    % labels for testdata
-    testdata   = data{test};
-    testdata   = reshape(testdata, ...
-			 util.count(testdata)/points, ...
-			 points);
-    
-    result{test} = apply(model, testdata);
+  function testdata = gettest(data, round)
+    % This function, gettest(), returns a matrix of training data
+    % which is reshaped into 2-dim: <k * n double>, where n is the
+    % number of sampled points in the data.
+    testdata = data{round};
+    testdata = sqeeze(testdata, util.dim(testdata));
   end
 
-  accu = util.verify(result, label);
+  function traindata = gettrain(data, round)
+    % This function, gettrain(), works quite the same way as
+    % gettest().
+    traindata = cat(util.dim(data{1}), ...
+		    data{1:round-1}, ...
+		    data{round+1:end});
+    traindata = sqeeze(traindata, util.dim(traindata));
+  end
+	 
+  function data = sqeeze(data, dim)
+    % This function, sqeeze(), reshap a matrix into 2-dim.
+    section = size(data, dim);
+    data    = reshape(data, ...
+		      util.count(data)/section, ...
+		      section);
+  end
+
+  
+  tests   = length(data);
+  acc     = zeros(tests, 1);
+  br      = zeros(tests, 1);
+  results = {};
+  
+  % for each round of test
+  for round = 1:tests
+    % train the model with train data, get a structure of params.
+    traindata  = gettrain(data,  round);
+    trainlabel = gettrain(label, round);
+
+    param      = train(traindata, trainlabel);
+    % and then, apply it with test data and model to get predicted
+    % labels for testdata
+    testdata   = gettest(data, round);
+
+    results{round} = apply(param, testdata);
+    
+  end
+
+  accu = util.verify(results, label);
   
 end
