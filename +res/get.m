@@ -9,7 +9,7 @@ function data = get(category, fullname)
   %                  +util/strformat.m.
   %
   % if `res.loadpathes` is not ran yet.
-  if (~exist(HOME))
+  if (~exist('HOME'))
     res.loadpathes;
   end
   

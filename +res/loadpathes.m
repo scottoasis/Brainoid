@@ -1,7 +1,8 @@
-  HOME   = '~/Codes/BCI/brainoid/';
-  DATA   = '~/Data/p300-speller/';
 
-  % add path to third-party libs.
-  addpath(genpath(util.pathcat(HOME, 'lib')));
+HOME   = '~/Codes/BCI/brainoid';
+DATA   = '~/Data/p300-speller';
 
-  %
+% add path to third-party libs.
+addpath(genpath(common.pathcat(HOME, 'lib')));
+
+%

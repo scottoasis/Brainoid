@@ -3,3 +3,5 @@
 # ignore the auto-saved file of emacs
 *~
 \#*\#
+# ignore all the data (which is proj-dependent)
+~.mat

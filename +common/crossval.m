@@ -4,13 +4,13 @@ function accu = crossval(train, apply, data, label)
   % accuracy and bit rate of the model.
   %
   % INPUT:
-  %	 train - The handle of train function, @model.blda.train, for
+  %      train - The handle of train function, @model.blda.train, for
   %	         example.
   %      apply - The handle of apply function, @model.blda.apply, for
   %              example.
   %      data  - A cell of matrices with preprocessed data, will be used 
-  %	         to train and test (so-called validate) the model.
-  %	 label - A cell of matrics with label of data.
+  %              to train and test (so-called validate) the model.
+  %      label - A cell of matrics with label of data.
   %	 
   % OUTPUT:
   %    results - A cell of matrix that stored the accuracy of the
@@ -22,30 +22,27 @@ function accu = crossval(train, apply, data, label)
     % which is reshaped into 2-dim: <k * n double>, where n is the
     % number of sampled points in the data.
     testdata = data{round};
-    testdata = sqeeze(testdata, util.dim(testdata));
+    testdata = sqeeze(testdata, common.dim(testdata));
   end
 
   function traindata = gettrain(data, round)
     % This function, gettrain(), works quite the same way as
     % gettest().
-    traindata = cat(util.dim(data{1}), ...
+    traindata = cat(common.dim(data{1}), ...
 		    data{1:round-1}, ...
 		    data{round+1:end});
-    traindata = sqeeze(traindata, util.dim(traindata));
+    traindata = sqeeze(traindata, common.dim(traindata));
   end
 	 
   function data = sqeeze(data, dim)
     % This function, sqeeze(), reshap a matrix into 2-dim.
-    section = size(data, dim);
+    sections = prod(size(data, dim));
     data    = reshape(data, ...
-		      util.count(data)/section, ...
-		      section);
+		      common.count(data)/sections, ...
+		      sections);
   end
-
   
   tests   = length(data);
-  acc     = zeros(tests, 1);
-  br      = zeros(tests, 1);
   results = {};
   
   % for each round of test
@@ -63,6 +60,10 @@ function accu = crossval(train, apply, data, label)
     
   end
 
-  accu = util.verify(results, label);
+  %% DEBUG
+  label{1}(end-100:end) == common.sigmoid(results{1}(end-100:end))
+  % results{1}(end-100:end)
+  
+  accu = common.verify(results, label, @common.sigmoid);
   
 end

@@ -6,5 +6,5 @@ function result = apply(model, data)
   %	 model -
   %	 data  -
   %
-	 
+  	 
 end

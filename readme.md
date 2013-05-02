@@ -1,21 +1,28 @@
 Brainoid
 ========
 
-Brainoid is an `Octave/Matlab` framework for analysing Brain-Computer
-Interfaces (aka. BCI) data. It is developed in order to help you get
-out from coding repeatedly, which is boring, dangerous and erroneous.
+## Abstract
+
+Brainoid is an framework to help you analyze
+[EEG](http://en.wikipedia.org/wiki/Eeg) data. It was originaly build
+for the use of Brain-Computer Interface
+([BCI])(http://en.wikipedia.org/wiki/Brain-computer_interface), but we
+believe that it is also applicable to other bio-sig data, like
+[EMG](http://en.wikipedia.org/wiki/Electromyography), or
+[EOG](http://en.wikipedia.org/wiki/EOG). It is developed with
+`Matlab`, which we believe is easy to understand for most of
+researchers in this field.
 
 
-Objectives
-----------
+## Objectives
 
-The major objective of Brainoid is to bring you a handy set of
-softwares to make it easier to build a BCI system, either online or
-offline. We decided to achive this goal by modularization, which means
-every part of signal processing, for example preprocessing, modeling
-and postprocessing. Each part, aka. module, can be seperated into
-several smaller parts, called sub-modules, like normalization, or
-windsorking in preprocessing.
+The major objective of Brainoid is to bring you a unified and flexible
+set of softwares to make it easier to build a BCI system, either
+online or offline. We decided to achive this goal by modularization,
+which means every part of signal processing, for example
+preprocessing, modeling and postprocessing. Each part, aka. module,
+can be seperated into several smaller parts, called sub-modules, like
+normalization, or windsorking in preprocessing.
 
 We decided to provide Brainoid as a framework. In other words, you can
 repalca those pre-defined modules to achive your specification. By
@@ -64,10 +71,10 @@ helpful for you and Brainoid to understand the data.
 About licensing
 ---------------
 
-This software is under GNU Public License (GPL). You should received a
-copy of the GPL license along with the software. If not, write to the
-Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-Boston, MA 02110-1301, USA.
+This software is under GNU Public License (GPL). You should have
+received a copy of the GPL license along with the software. If not,
+write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+Floor, Boston, MA 02110-1301, USA.
 
 
 ## Help us
