@@ -10,10 +10,10 @@ function full_path = pathcat(path, subpath, varargin)
 % Author: scott wang
 %
   if (length(varargin) ==  0)
-      full_path = [path filesep subpath];
+      full_path = strcat(path, filesep, subpath);
   else
-      full_path = util.pathcat(util.pathcat(path, subpath), ...
-			       varargin{1}, varargin{2:end});
+      full_path = common.pathcat(common.pathcat(path, subpath), ...
+				 varargin{1}, varargin{2:end});
   end
   
 end

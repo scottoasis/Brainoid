@@ -1,49 +1,54 @@
-function out = strformat(s, varargin)
-  % This function
+function bundle = strformat(str)
 
-  function depth = stack(in, depth)
-    if (in == ']' && depth ~= 0)
-      depth = depth - 1;
-    elseif (in == ']')
-      depth = -2;
-    elseif (in == '[')
-      depth = depth + 1;
+  % {{{ splitAtFirst() splits given `seq` at the first point that
+  % matches `note`
+  function [former, latter] = splitAtFirst(seq, note)
+    nodes  = find(seq == note);
+    if (~isempty(nodes))
+      former = seq(1 : nodes(1) - 1);
+      latter = seq(nodes(1) + 1 : end);
+    else
+      former = [];
+      latter = seq;
     end
   end
+  % }}}
 
-  t   = strcat(s);
-  out = {};
-  lbrace = find(t == '[');
-
-  if (isempty(lbrace))
-    out{1} = t;
-  else
-    rbrace  = find(t == ']');
-    paralel = t(lbrace(1)+1 : rbrace(end)-1);
-    paralel = strformat(paralel);
-
-    depth = 0
-    for char = 1:length(t)
-      depth = stack(t(char), depth);
-      if (depth >= 1)
-	strformat(t(char:end)
+  % {{{ span() splits given `str` with symbol `open` and `close`
+  function [former, branches, latter] = span(str, open, close)
+    [former, after] = splitAtFirst(str, open);
+    [br, latter]    = splitAtFirst(after, close);
+    branches        = split(br, '|');
   end
+  % }}}
 
+  % {{{ split(0 splites given `seq` with `note`, returns a cell of
+  % `branches`
+  function branches = split(seq, note)
+    [before, after] = splitAtFirst(seq, note);
+    if (~isempty(before))
+      nextBranch = split(after, note);
+      branches = {before, nextBranch{:}};
+    else
+      branches = {after};
+    end
+  end
+  % }}}
 
-%%
-% origin    -> [one|two|[three|four][five|six]]
-% split '[' ->  one|two| three|four] five|six]]
-% split ']' ->  one|two| three|four  five|six
-% should be -> [one|two|treefive|threesix|fourfive|foursix]
-
-%
-% origin    -> [one|two]three[four|five]
-% split '[' ->  one|two]three four|five]
-% split ']' ->  one|two three four|five
-
-% basic struct
-% [one|two]        -> [one|two]
-% [one|two]three   -> [onethree|twothree]
-% [one|[two|tree]] -> [one|two|three]
-
+  if isempty(find(str == '['))
+     bundle = str;
+  else 
+    bundle = {};
+    [former, branches, latter] = span(str, '[', ']');
+    
+    for (branch = 1:length(branches))
+      bundle{branch} = [common.strformat(former), ...
+			common.strformat(branches{branch}), ...
+			common.strformat(latter), ''];
+    end
+  end
+  
 end
+
+%% Example:
+%  strformat('a simple test of [this|that].'

@@ -1,4 +1,4 @@
-function data = get(category, fullname)
+function data = get(category, fullnames)
   % This function, res.get(), is a helper function to help you retrieve
   % your data.
   % INPUT:
@@ -12,7 +12,17 @@ function data = get(category, fullname)
   if (~exist('HOME'))
     res.loadpathes;
   end
-  
+  data = {};
+
+  switch(category) 
+    case {'data'}
+      files = common.strformat(fullnames);
+      for (f = 1:length(files))
+	load([common.pathcat(DATA, files{f}), '']);
+	data{f} = runs;
+      end 
+  end
+	
 
 	 
 end

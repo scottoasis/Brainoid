@@ -20,20 +20,13 @@ function accu = make(varargin)
   channel = [1:12];
 
   %  load raw data.
-  % rawdata = res.get('data', ...
-  % 'AO3/sdataoffline/[AO3-19-S11|AO3-19-S21|AO3-91-S31].mat');
+  rawdata = res.get('data', ...
+		    'AO3/sdataoffline/AO3-19-S[1|2|3]1.mat');
   
-  load(common.pathcat(DATA, 'AO3/sdataoffline/AO3-19-S11.mat'));
-  rawdata{1} = runs;
-  load(common.pathcat(DATA, 'AO3/sdataoffline/AO3-19-S21.mat'));
-  rawdata{2} = runs;
-  load(common.pathcat(DATA, 'AO3/sdataoffline/AO3-19-S31.mat'));
-  rawdata{3} = runs;
-
   data  = {[]};
   label = {[]};
   windsork  = @(data) prep.applyw(prep.trainw(prep.windsork(), ...
-					     data, 0.1), data);
+					      data, 0.1), data);
   normalize = @(data) prep.applyn(prep.trainn(prep.normalizen(), ...
 					      data, 'z-score'), data); 
 
