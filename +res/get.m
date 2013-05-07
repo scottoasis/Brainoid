@@ -18,8 +18,8 @@ function data = get(category, fullnames)
     case {'data'}
       files = common.strformat(fullnames);
       for (f = 1:length(files))
-	load([common.pathcat(DATA, files{f}), '']);
-	data{f} = runs;
+	[d, l]  = res.loaddata(common.pathcat(DATA, files{f}));
+	data{f} = {d, l};
       end 
   end
 	

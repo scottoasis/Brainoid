@@ -8,10 +8,10 @@ Brainoid is an framework to help you analyze
 for the use of Brain-Computer Interface
 ([BCI])(http://en.wikipedia.org/wiki/Brain-computer_interface), but we
 believe that it is also applicable to other bio-sig data, like
-[EMG](http://en.wikipedia.org/wiki/Electromyography), or
-[EOG](http://en.wikipedia.org/wiki/EOG). It is developed with
-`Matlab`, which we believe is easy to understand for most of
-researchers in this field.
+[EMG](http://en.wikipedia.org/wiki/Electromyography), or even with
+other patter-recognition or classification problems.  It is developed
+with `Matlab`, which we believe is easy to understand for most of
+researchers in these fields.
 
 
 ## Objectives

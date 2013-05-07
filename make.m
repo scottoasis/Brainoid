@@ -5,67 +5,41 @@ function accu = make(varargin)
 
   clear
 
-  %% +RES
-  % {{{
-  %  First of all, include biosig4octmat package. Then load other
-  %  resources, like EEG electrodes definition and raw data we need to
-  %  deal with.
+  % {{{ +RES
+  % First of all, include biosig4octmat package. Then load other
+  % resources, like EEG electrodes definition and raw data we need to
+  % deal with.
   
   %  add load pathes
   res.loadpathes;
 
-  %  load electrode structure
-  trinum  = 19;
-  flanum  = 2;
-  channel = [1:12];
+  % load electrode structure
+  %  trinum  = 19;
+  %  flanum  = 2;
+  %  channel = [1:12];
 
   %  load raw data.
-  rawdata = res.get('data', ...
-		    'AO3/sdataoffline/AO3-19-S[1|2|3]1.mat');
-  
-  data  = {[]};
-  label = {[]};
-  windsork  = @(data) prep.applyw(prep.trainw(prep.windsork(), ...
-					      data, 0.1), data);
-  normalize = @(data) prep.applyn(prep.trainn(prep.normalizen(), ...
-					      data, 'z-score'), data); 
+  bundles   = res.get('data', 'AO3/sdataoffline/AO3-19-S[1|2|3]1.mat');
+  data      = {[]};
+  label     = {[]};
+  windsork  = @(data) prep.applyw(prep.trainw(prep.windsork(), data, 0.1), data);
+  normalize = @(data) prep.applyn(prep.trainn(prep.normalizen(), data, 'z-score'), data); 
 
   % }}} +RES end.
-
   
-  %% +PREP
-  % {{{
-  %  First, append all the trainning data and labels into 2 large
-  %  matrices: data and label. Then go through the pre-processing steps
-  %  by applying data to prep.apply(). A normalized and well regulated
-  %  data matrix will then be returned as output of prep.apply().
-  for set = 1:length(rawdata)
-    r = rawdata{set};
-    d = []; dimd = common.dim(r{1}.x);
-    l = []; diml = common.dim(r{1}.y);
-    for run = 1:length(r)
-      d = cat(dimd, d, r{run}.x);
-      l = cat(diml, l, r{run}.y);
-    end
-    data{set}  = prep.apply({windsork, normalize}, d);
-    label{set} = l;
-    
+  % {{{ +PREP
+  for set = 1:length(bundles)
+    data_label = bundles{set};
+    data{set}  = prep.apply({windsork, normalize}, data_label{1})
+    label{set} = data_label{2};
   end
-
   % }}} +PREP end.
   
-
-
-
-
-
-  %% +MODEL
-  % {{{
+  % {{{ +MODEL
   trainblda = @(data, label) model.blda.train(model.blda.bayesldab(1), data, label);
   applyblda = @model.blda.classifybye;
 
   accu = common.crossval(trainblda, applyblda, data, label);
-
   % }}} +MODEL end.
 
 end
