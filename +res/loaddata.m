@@ -29,8 +29,8 @@ function [d,l] = loaddata(filename)
   load(filename)
 
   d = []; l = [];
-  dimd = common.dim(runs{1}.x);
-  diml = common.dim(runs{1}.y);
+  dimd = dim(runs{1}.x);
+  diml = dim(runs{1}.y);
   for run = 1:length(runs)
     d = cat(dimd, d, runs{run}.x);
     l = cat(diml, l, runs{run}.y);

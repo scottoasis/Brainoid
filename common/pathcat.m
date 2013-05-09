@@ -12,8 +12,9 @@ function full_path = pathcat(path, subpath, varargin)
   if (length(varargin) ==  0)
       full_path = strcat(path, filesep, subpath);
   else
-      full_path = common.pathcat(common.pathcat(path, subpath), ...
-				 varargin{1}, varargin{2:end});
+      pathes = varargin;
+      full_path = pathcat(pathcat(path, subpath), ...
+			  pathes{1}, pathes{2:end});
   end
   
 end

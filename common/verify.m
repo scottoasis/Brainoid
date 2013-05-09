@@ -21,7 +21,7 @@ function accu = verify(predic, label, varargin)
   
   for test = 1:tests
     similarity = map(predic{test}) == label{test};
-    accu{test} = common.count(similarity, istrue) / ...
-		 common.count(similarity, id);
+    accu{test} = count(similarity, istrue) / ...
+		 count(similarity, id);
   end
 end

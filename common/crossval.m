@@ -22,23 +22,23 @@ function accu = crossval(train, apply, data, label)
     % which is reshaped into 2-dim: <k * n double>, where n is the
     % number of sampled points in the data.
     testdata = data{round};
-    testdata = sqeeze(testdata, common.dim(testdata));
+    testdata = sqeeze(testdata, dim(testdata));
   end
 
   function traindata = gettrain(data, round)
     % This function, gettrain(), works quite the same way as
     % gettest().
-    traindata = cat(common.dim(data{1}), ...
+    traindata = cat(dim(data{1}), ...
 		    data{1:round-1}, ...
 		    data{round+1:end});
-    traindata = sqeeze(traindata, common.dim(traindata));
+    traindata = sqeeze(traindata, dim(traindata));
   end
 	 
   function data = sqeeze(data, dim)
     % This function, sqeeze(), reshap a matrix into 2-dim.
     sections = prod(size(data, dim));
     data    = reshape(data, ...
-		      common.count(data)/sections, ...
+		      count(data)/sections, ...
 		      sections);
   end
   
@@ -61,9 +61,9 @@ function accu = crossval(train, apply, data, label)
   end
 
   %% DEBUG
-  label{1}(end-100:end) == common.sigmoid(results{1}(end-100:end))
+  label{1}(end-100:end) == sigmoid(results{1}(end-100:end))
   % results{1}(end-100:end)
   
-  accu = common.verify(results, label, @common.sigmoid);
+  accu = verify(results, label, @sigmoid);
   
 end

@@ -1,4 +1,4 @@
-function accu = make(varargin)
+function accu = run(module)
   % make.m is the main entrance of the whole program. 
   %
 	 	 
@@ -22,6 +22,7 @@ function accu = make(varargin)
   bundles   = res.get('data', 'AO3/sdataoffline/AO3-19-S[1|2|3]1.mat');
   data      = {[]};
   label     = {[]};
+  
   windsork  = @(data) prep.applyw(prep.trainw(prep.windsork(), data, 0.1), data);
   normalize = @(data) prep.applyn(prep.trainn(prep.normalizen(), data, 'z-score'), data); 
 
@@ -39,7 +40,7 @@ function accu = make(varargin)
   trainblda = @(data, label) model.blda.train(model.blda.bayesldab(1), data, label);
   applyblda = @model.blda.classifybye;
 
-  accu = common.crossval(trainblda, applyblda, data, label);
+  accu = crossval(trainblda, applyblda, data, label);
   % }}} +MODEL end.
 
 end

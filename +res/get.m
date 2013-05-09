@@ -16,9 +16,9 @@ function data = get(category, fullnames)
 
   switch(category) 
     case {'data'}
-      files = common.strformat(fullnames);
+      files = strformat(fullnames);
       for (f = 1:length(files))
-	[d, l]  = res.loaddata(common.pathcat(DATA, files{f}));
+	[d, l]  = res.loaddata(pathcat(DATA, files{f}));
 	data{f} = {d, l};
       end 
   end
